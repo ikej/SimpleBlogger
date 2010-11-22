@@ -1,0 +1,7 @@
+<div>
+<h3><%=link_to post.title, post%></h3>
+<%=label 'created time','Posted about: '<< time_ago_in_words(post.created_at) %> ago<br/> 
+    <%=raw post.content %>
+    <hr/>
+</div>
+ 

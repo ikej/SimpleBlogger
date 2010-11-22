@@ -1,0 +1,88 @@
+<%content_for :head do %>
+  <%= javascript_include_tag "ckeditor/ckeditor"%>
+<%end%>
+
+<script type="text/javascript">
+window.onload = function()
+{
+    CKEDITOR.replace( 'comment[content]' ,
+    {
+      filebrowserBrowseUrl : '/browser/browse.php',
+      filebrowserUploadUrl : '/upload/rackupload',
+      toolbar :
+      [
+        ['Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+  
+        ['Styles','Format'],
+        ['Bold','Italic','Strike'],
+        ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+        ['Link'],
+      ]
+
+    });
+
+ 
+}
+</script>
+
+<p>
+  <b><%= @post.title %></b>
+</p>
+<div>
+  <%=raw @post.content%>
+</div>
+<p>
+  <b>Posted about: </b>
+  <%= time_ago_in_words(@post.created_at) %> ago<br/>
+</p>
+
+<%if @post.tags.length>0%>
+<p>
+<b>Tags:</b>
+<% @post.tags.each do |tag| %>
+  <%=link_to tag.keyword, :controller =>'tags', :action => 'show_posts', :id => tag.id %>
+<%end%>
+</p>
+<%end%>
+
+<%if @post.file_infos.length>0 %>
+<%=render :partial=>'attachments', :locals => {:file_infos=>@post.file_infos, :may_delete=>false} %>
+<%end%>
+
+
+<div id="comments">
+<%if @comments.length > 0 %>
+<b>Comments:</b>
+<%@comments.each do |c| %>
+  <%=render :partial=>'comment', :locals=>{:comment=>c}%>
+<%end%>
+<%= will_paginate @comments, :param_name => 'current_comment_page' %>
+<%end%>
+</div>
+
+<p>
+<b>Your Comment:</b>
+<%=form_for :comment, :url =>post_path(@post) << '/create_comment',:html=>{:id=>'new_comment'},:remote => true do |f|%>
+  
+  <div class="field">
+    <%=f.label :name, 'Name:'%> <br/>
+    <%=f.text_field :name%>
+  </div>
+
+  <div class="field">
+    <%=f.label :url, 'URL:'%> <br/>
+    <%=f.text_field :url%>
+  </div>
+
+  <div class="field">
+    <%=f.label :content, 'Comment:'%> <br/>
+    <%=f.text_area :content%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<%end %>
+</p>
+

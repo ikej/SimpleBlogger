@@ -1,0 +1,4 @@
+page[@deleted_file].visual_effect :fade
+page.replace_html :notice, flash[:notice]
+flash.discard
+

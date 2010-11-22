@@ -1,0 +1,12 @@
+<h2><%=@keyword %></h2>
+
+<%=link_to 'feed for this tag', '/tags/show_posts/'+@tag_id+'.atom'  %>
+
+<%@posts.each do |p| %>
+  <p> 
+    <%=link_to p.title,  p%> <br/>
+    <%=raw p.content%>
+  </p>
+  <hr/>
+<%end %>
+<%=will_paginate @posts%>

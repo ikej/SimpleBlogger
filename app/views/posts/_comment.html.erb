@@ -1,0 +1,9 @@
+<%=div_for comment do %>
+<p>
+  <%=link_to comment.name,comment.url%>&nbsp;&nbsp;<%=label 'comment_time',time_ago_in_words(comment.created_at)  %> ago<br/>
+  <div>
+    <%=raw comment.content %>
+  </div>
+</p>
+<hr/>
+<%end%>

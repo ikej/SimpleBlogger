@@ -1,0 +1,64 @@
+<%content_for :head do %>
+  <%= javascript_include_tag "ckeditor/ckeditor"%>
+<%end%>
+<script type="text/javascript">
+function show_or_hide_code_format_area()
+{
+  var code_format_area = document.getElementById('code_to_format');
+  if (code_format_area.style.display == 'none')
+  {
+    code_format_area.style.display = '';
+  }
+  else
+  {
+    code_format_area.style.display = 'none';
+  }
+}
+
+</script>
+
+
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :Tag %><br />
+    <input type="text" id="post_tags" name="tags" size="40" value="<%=@tags%>" />
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%end %>
+
+<a onclick="show_or_hide_code_format_area()">Format code here: </a> <br/>
+<div id="code_to_format" style="display:none">
+  <%=form_for :source_code, :url=>'/format_code' ,:html=>{:id=>'source_code'},:remote=>true do |f|%>
+    <div class='field'>   
+      <%=f.text_area :code%><div id='formated_code'></div><br/>
+      <%=f.label 'Source Code Type'%>
+      <%=select("code", "type", { "Ruby" => 'ruby',"erb"=>"rhtml","C" => "c","C++"=>"cpp", "Java" => "java", "JS"=>'javascript',"HTML"=>"html","CSS"=>'css',"XML"=>"xml","JSON"=>"json","SQL"=>"sql","YAML"=>"yaml","Python"=>"python","PHP"=>"php", "Terminal"=>"term"}) %> 
+      <%=f.submit 'Format code'%>
+    </div>
+  <%end%>
+</div> <br/>
+<hr/>
+
+

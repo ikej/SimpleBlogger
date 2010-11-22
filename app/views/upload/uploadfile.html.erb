@@ -1,0 +1,46 @@
+
+<html> 
+    <head> 
+      <title>HTML5 Multiple File Upload With Progress Bar</title> 
+      <%content_for :head do %>
+        <%= javascript_include_tag "sendFile"%>
+      <%end%>
+        <style type="text/css"> 
+        * {
+            font-family: Verdana, Helvetica, sans-serif;
+            font-size: 8pt;
+        }
+        div {
+            margin-top: 4px;
+        }
+        .progress {
+            width: 200px;
+            border: 1px solid #BBB;
+            background-color: #FFF;
+            padding: 0;
+        }
+        .progress span {
+            display: block;
+            width: 0px;
+            height: 10px;
+            background-color: #DDD;
+        }
+        #from {
+            position: absolute;
+            top: 120px;
+        }
+        </style> 
+        <script type="text/javascript"> 
+ 
+        /** basic Safari 4 multiple upload example
+         * @author  Andrea Giammarchi
+         * @blog    WebReflection [webreflection.blogspot.com]
+         */
+        onload = function(){
+          init_upload_file_controls(); 
+        };
+        </script> 
+    </head> 
+    <body> 
+    </body> 
+</html>

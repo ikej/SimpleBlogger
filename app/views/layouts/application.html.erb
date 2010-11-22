@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ike's Blog</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults%>
+  <%= yield(:head) %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div id="message">     
+    <p class="notice" id="notice"><%= flash[:notice] %></p>
+    <p class="error" id="error"><%= flash[:error] %></p>
+    <%=auto_discovery_link_tag :atom,posts_path<<'.atom'%>
+  </div> 
+      <div id="container">
+        <div id="side_bar">
+          <a href="/">
+            <img src="/images/ike_blog_logo.png" border="0">
+            </img>
+          </a> 
+          <a href="/posts.atom">
+            <img src="/images/rss.jpg" width="20" height="20" border="0">
+            </img>
+          </a>
+          <%=render 'search/search'%>
+          <%if @all_tags %>
+            <div>
+              <b>Tags:</b>
+              <% @all_tags.each do |tag| %>
+                <%=link_to tag.keyword, :controller =>'tags', :action => 'show_posts', :id => tag.id %>
+              <%end%> 
+            </div>
+          <%end%>
+        </div>
+        <div id="main_content">
+          <%= yield %>
+        </div>
+      </div> 
+</body>
+</html>

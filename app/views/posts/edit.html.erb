@@ -1,0 +1,51 @@
+<%content_for :head do %>
+  <%= javascript_include_tag "sendFile"%>
+<%end%>
+
+
+        <style type="text/css"> 
+        * {
+            font-family: Verdana, Helvetica, sans-serif;
+            font-size: 8pt;
+        }
+        div {
+            margin-top: 4px;
+        }
+        .progress {
+            width: 200px;
+            border: 1px solid #BBB;
+            background-color: #FFF;
+            padding: 0;
+        }
+        .progress span {
+            display: block;
+            width: 0px;
+            height: 10px;
+            background-color: #DDD;
+        }
+        #from {
+            position: absolute;
+            top: 120px;
+        }
+        </style> 
+
+<script type="text/javascript">
+window.onload = function()
+{
+    CKEDITOR.replace( 'post[content]' ,
+    {
+      filebrowserBrowseUrl : '/browser/browse.php',
+      filebrowserUploadUrl : '/upload/rackupload'
+    });
+
+  init_upload_file_controls();
+}
+</script>
+
+<h1>Editing post</h1>
+
+<%= render 'form' %>
+<%= render :partial=>'attachments', :locals => {:file_infos=>@post.file_infos, :may_delete=>true} %>
+
+<%= link_to 'Show', @post %> |
+<%= link_to 'Back', posts_path %>

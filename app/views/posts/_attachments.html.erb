@@ -1,0 +1,12 @@
+<p>
+<b>Attachments:</b> <br/>
+<%file_infos.each do |file_info| %>
+<%=div_for file_info do %>
+  <%=link_to file_info.name, 'http://' + request.env['HTTP_HOST'] + '/' + file_info.url%>
+  <%if may_delete%>
+    <%=link_to 'Delete', 'delete_file/' + file_info.id.to_s,:remote=>true%>
+  <%end %>
+<%end %>
+  <br/>
+<%end %>
+</p>

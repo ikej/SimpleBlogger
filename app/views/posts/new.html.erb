@@ -1,0 +1,16 @@
+<script type="text/javascript">
+window.onload = function()
+{
+    CKEDITOR.replace( 'post[content]' ,
+    {
+      filebrowserBrowseUrl : '/browser/browse.php',
+      filebrowserUploadUrl : '/upload/rackupload'
+    });
+}
+</script>
+
+<h1>New post</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', posts_path %>

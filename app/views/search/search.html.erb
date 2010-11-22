@@ -1,0 +1,14 @@
+<b>Search Results: </b> <br/>
+<% if @search_post_results.length > 0 %>
+<%@search_post_results.each do |post| %>
+  <%=link_to post.title, post_path(post) %> <br/>
+  <div>
+    <%results = highlight_criteria_in_search_result(@criteria,post.plain_content)%>
+    <%=results[0]%><%=raw results[1]%><%=results[2]%>
+  </div>
+  <hr/>
+<%end%>
+<%else%>
+  <div>no record found.</div>
+<%end %>
+<%= will_paginate @search_post_results %>
