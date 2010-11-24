@@ -19,6 +19,8 @@ Ikeblog::Application.routes.draw do
   match 'posts/:id/delete_file/:file_id' => 'files#delete_file'
 
   match 'search' => 'search#search'
+
+  match '*resource_path' => 'resources#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
