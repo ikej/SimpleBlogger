@@ -1,0 +1,15 @@
+
+<h3>Current Path: <%=@path%> </h3>
+
+<%@folds.each do |fold| %>
+  <%=link_to fold[:fold_name], fold[:fold_path]%> <br/>
+<%end %>
+
+<%@files.each do |file| %>
+  <%=link_to file[:file_name], file[:file_path]%>
+  <%if (['PDF', 'DOC', 'DOCX', 'PPT', 'PPTX', 'TIFF'].grep file[:file_type].upcase).length > 0%>
+    <%=link_to 'Preview', 'http://docs.google.com/viewer?embedded=true&url=' + file[:file_path]%>
+  <%end %>
+  <br/>
+<%end %>
+
