@@ -31,6 +31,10 @@ using "CKEditor"
   --search post by title,text_content
   --show paged search results, highlight the search criteria word in result 
 
+-Resources Browse
+  --List resources recursively
+  --Preview some doc type by using google doc viewer
+
 -------------------------
 
 TODO:
