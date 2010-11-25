@@ -1,7 +1,11 @@
 <b>Search Resource Results: </b> <br/>
 <% if @search_resource_results.length > 0 %>
 <%@search_resource_results.each do |result| %>
-  <%=link_to result[:name], result[:path] %> <br/>
+  <%=link_to result[:name], result[:path] %>
+  <%if (['PDF', 'DOC', 'DOCX', 'PPT', 'PPTX', 'TIFF'].grep result[:file_type]).length>0%>
+    <%=link_to 'Preview', 'http://docs.google.com/viewer?embedded=true&url=' + result[:path]%>
+  <%end %>
+    <br/>
  <%end%>
 <%else%>
   <div>no resource found.</div>

@@ -29,7 +29,8 @@ using "CKEditor"
 
 -Search function 
   --search post by title,text_content
-  --show paged search results, highlight the search criteria word in result 
+  --show paged search results, highlight the search criteria word in result
+  --search resource by file or fold name
 
 -Resources Browse
   --List resources recursively

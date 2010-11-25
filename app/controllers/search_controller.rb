@@ -12,7 +12,7 @@ class SearchController < ApplicationController
     if params[:search_criteria].strip.length > 0
       @search_resource_results = `find public/resources/ -name *#{params[:search_criteria]}*`.split("\n").collect do |result|
       file_path = result.sub(/public\//,'')
-      {:name => result.split('/').last,:path=> 'http://' + env['HTTP_HOST'] + '/' + file_path}
+      {:name => result.split('/').last,:path=> 'http://' + env['HTTP_HOST'] + '/' + file_path,:file_type => file_path.split('.').last.upcase}
       end
     end
     render :layout=>'resource'
