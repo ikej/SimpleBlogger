@@ -1,5 +1,4 @@
-
-<h3>Current Path: <%=@path%> </h3>
+<%=link_to '上一层', @parent_path%> <br/>
 
 <%@folds.each do |fold| %>
   <%=link_to fold[:fold_name], fold[:fold_path]%> <br/>

@@ -1,0 +1,8 @@
+<b>Search Resource Results: </b> <br/>
+<% if @search_resource_results.length > 0 %>
+<%@search_resource_results.each do |result| %>
+  <%=link_to result[:name], result[:path] %> <br/>
+ <%end%>
+<%else%>
+  <div>no resource found.</div>
+<%end %>

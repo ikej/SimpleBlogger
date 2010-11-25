@@ -20,6 +20,8 @@ Ikeblog::Application.routes.draw do
 
   match 'search' => 'search#search'
 
+  match 'search/resource' => 'search#search_resource'
+
   match '*resource_path' => 'resources#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.

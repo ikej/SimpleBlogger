@@ -1,6 +1,10 @@
 class ResourcesController < ApplicationController
+  layout "resource"
+
   def show
-    @path = path = File.join("public",params[:resource_path])
+    path = File.join("public",params[:resource_path])
+    current_fold = path.split('/').last
+    @parent_path ='http://' + env['HTTP_HOST'] + '/' + path.sub(/public\//,'').sub(/#{current_fold}/, '')
 
     @folds = Dir[File.join(path, "*")].select{|file| File.directory?(file)}.collect do |name| 
       fold_name = name.split('/').last 
