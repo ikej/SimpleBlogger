@@ -8,7 +8,8 @@ class PostsController < ApplicationController
   # GET /posts.xml
   def index
     @posts = Post.paginate :page => params[:page], :order => 'created_at DESC'
-    @all_tags = Tag.all
+    @all_tags = Tag.all.sort_by {|tag| -tag.post.length}
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @posts }
@@ -22,7 +23,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments.paginate :page=>params[:current_comment_page],:per_page=>'20' 
-    @all_tags = Tag.all
+    @all_tags = Tag.all.sort_by {|tag| -tag.post.length}
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @post }

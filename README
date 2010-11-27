@@ -12,6 +12,7 @@ using "CKEditor"
 -Tags for post.
   --Add tags for a post
   --Show a tag's posts, show a post's tags
+  --List post number for each tag, sort tag by post number
 
 -Comments for post.
   --Add comments for a post (AJAX)

@@ -13,8 +13,6 @@ class SearchController < ApplicationController
       words_not_allowed = params[:search_criteria].scan /\||&|<|>/
       if words_not_allowed.length > 0
         @search_resource_results = [] 
-        
-
       else
         @search_resource_results = `find public/resources/ -name *#{params[:search_criteria].strip}*`.split("\n").collect do |result|
         file_path = result.sub(/public\//,'')

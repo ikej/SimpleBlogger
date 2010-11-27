@@ -18,21 +18,33 @@
           <a href="/">
             <img src="/images/ike_blog_logo.png" border="0">
             </img>
-          </a> 
+          </a> <br/> 
           <a href="/posts.atom">
             <img src="/images/rss.jpg" width="20" height="20" border="0">
             </img>
-          </a>
-          <%=render 'search/search'%>
+          </a> <br/>
+          <%=render 'search/search'%> <br/>
           <%if @all_tags %>
             <div>
-              <b>Tags:</b>
+              <b>Tags:</b> <br/>
               <% @all_tags.each do |tag| %>
-                <%=link_to tag.keyword, :controller =>'tags', :action => 'show_posts', :id => tag.id %>
+                <%=link_to tag.keyword + "(#{tag.post.length})", :controller =>'tags', :action => 'show_posts', :id => tag.id %>
               <%end%> 
             </div>
           <%end%>
-          <a href="/resources">学佛资料</a>
+          <br/>
+          <div id="recommend">
+            <b>Recommend: </b> <br/>
+            <a href="/resources">学佛资料</a>
+          </div> <br/>
+          <div id="ikeinfo">
+            <b>About me: </b> <br/>
+            <a href="mailto:iike22@gmail.com">
+              <img src="/images/mail.jpg" width="20" height="20" border="0">
+              </img>
+            </a>          
+          </div>
+
         </div>
         <div id="main_content">
           <%= yield %>
