@@ -6,15 +6,15 @@ function size(bytes){   // simple function to show a friendly size
     };
     return  i ? bytes.toFixed(2) + ["", " Kb", " Mb", " Gb", " Tb"][i] : bytes + " bytes";
 };
-function init_upload_file_controls(){ 
+function init_upload_file_controls(container){ 
         // create element
           
-          document.body.appendChild(document.createElement("br"));
-          document.body.appendChild(document.createElement("hr"));
-          var input = document.body.appendChild(document.createElement("input")),
-              sub = document.body.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
-              bar = document.body.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
-              div = document.body.appendChild(document.createElement("div"));
+          container.appendChild(document.createElement("br"));
+          container.appendChild(document.createElement("hr"));
+          var input = container.appendChild(document.createElement("input")),
+              sub = container.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
+              bar = container.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
+              div = container.appendChild(document.createElement("div"));
           
           // set input type as file
           input.setAttribute("type", "file");

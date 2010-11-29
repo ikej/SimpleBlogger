@@ -37,8 +37,8 @@ window.onload = function()
       filebrowserBrowseUrl : '/browser/browse.php',
       filebrowserUploadUrl : '/upload/rackupload'
     });
-
-  init_upload_file_controls();
+  uploadFileControl = document.getElementById('upload_file');
+  init_upload_file_controls(uploadFileControl);
 }
 </script>
 
@@ -46,6 +46,10 @@ window.onload = function()
 
 <%= render 'form' %>
 <%= render :partial=>'attachments', :locals => {:file_infos=>@post.file_infos, :may_delete=>true} %>
+
+<div id="upload_file">
+  
+</div>
 
 <%= link_to 'Show', @post %> |
 <%= link_to 'Back', posts_path %>
