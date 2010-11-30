@@ -32,7 +32,7 @@
     
 
     def self.convert_and_pass_on(env)
-      name = Time.now.to_f.to_s <<  env['HTTP_X_FILE_NAME'] #upload.original_filename
+      name = Time.now.to_f.to_s <<  env['HTTP_X_FILE_NAME'].gsub(/\+|\*|-|&|%|\^|#|@|\/|\\|\?/, '_') #upload.original_filename
       directory = "public/data"
       # create the file path
       path = File.join(directory, name)

@@ -32,13 +32,20 @@
 <script type="text/javascript">
 window.onload = function()
 {
-    CKEDITOR.replace( 'post[content]' ,
-    {
-      filebrowserBrowseUrl : '/browser/browse.php',
-      filebrowserUploadUrl : '/upload/rackupload'
-    });
-  uploadFileControl = document.getElementById('upload_file');
-  init_upload_file_controls(uploadFileControl);
+  CKEDITOR.replace( 'post[content]' ,
+  {
+    filebrowserBrowseUrl : '/browser/browse.php',
+    filebrowserUploadUrl : '/upload/rackupload'
+  });
+  
+  
+  var uploadFileControl = document.getElementById('upload_file');
+  var options = {
+    container:uploadFileControl,
+    need_reload_page:true,
+    handler_url:"/uploadfile"
+  }
+  init_upload_file_controls(options);
 }
 </script>
 
@@ -46,7 +53,7 @@ window.onload = function()
 
 <%= render 'form' %>
 <%= render :partial=>'attachments', :locals => {:file_infos=>@post.file_infos, :may_delete=>true} %>
-
+<br/><hr/>
 <div id="upload_file">
   
 </div>

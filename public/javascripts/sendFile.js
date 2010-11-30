@@ -6,76 +6,84 @@ function size(bytes){   // simple function to show a friendly size
     };
     return  i ? bytes.toFixed(2) + ["", " Kb", " Mb", " Gb", " Tb"][i] : bytes + " bytes";
 };
-function init_upload_file_controls(container){ 
-        // create element
+function init_upload_file_controls(options){ 
+  // create element
+   
+  var container = options.container;
+  if (container == null)
+  {
+    container = document.body;
+  }
+  var input = container.appendChild(document.createElement("input")),
+      sub = container.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
+      bar = container.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
+      div = container.appendChild(document.createElement("div"));
+  
+  // set input type as file
+  input.setAttribute("type", "file");
+  
+  // enable multiple selection (note: it does not work with direct input.multiple = true assignment)
+  input.setAttribute("multiple", "true");
+  
+  // auto upload on files change
+  input.addEventListener("change", function(){
+      
+      // disable the input
+  if (input.files.length > 0)
+  {
+      input.setAttribute("disabled", "true");
+  }
+    
+  sendMultipleFiles({
+      // server handle url
+      handler_url:options.handler_url,
+
+      // list of files to upload
+      files:input.files,
+      
+      // clear the container 
+      onloadstart:function(){
+          div.innerHTML = "Init upload ... ";
+          sub.style.width = bar.style.width = "0px";
+      },
+      
+      // do something during upload ...
+      onprogress:function(rpe){
+          div.innerHTML = [
+              "Uploading: " + this.file.fileName,
+              "Sent: " + size(rpe.loaded) + " of " + size(rpe.total),
+              "Total Sent: " + size(this.sent + rpe.loaded) + " of " + size(this.total)
+          ].join("<br />");
+          sub.style.width = ((rpe.loaded * 200 / rpe.total) >> 0) + "px";
+          bar.style.width = (((this.sent + rpe.loaded) * 200 / this.total) >> 0) + "px";
+      },
+      
+      // fired when last file has been uploaded
+      onload:function(rpe, xhr){
+          div.innerHTML += ["",
+              "Server Response: " + xhr.responseText
+          ].join("<br />");
+          sub.style.width = bar.style.width = "200px";
+          // enable the input again
+          input.removeAttribute("disabled");
+          if (options.need_reload_page)
+          {
+            location.reload(true);
+          }
+      },
+      
+      // if something is wrong ... (from native instance or because of size)
+      onerror:function(){
+          div.innerHTML = "The file " + this.file.fileName + " is too big [" + size(this.file.fileSize) + "]";
           
-          container.appendChild(document.createElement("br"));
-          container.appendChild(document.createElement("hr"));
-          var input = container.appendChild(document.createElement("input")),
-              sub = container.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
-              bar = container.appendChild(document.createElement("div")).appendChild(document.createElement("span")),
-              div = container.appendChild(document.createElement("div"));
-          
-          // set input type as file
-          input.setAttribute("type", "file");
-          
-          // enable multiple selection (note: it does not work with direct input.multiple = true assignment)
-          input.setAttribute("multiple", "true");
-          
-          // auto upload on files change
-          input.addEventListener("change", function(){
-              
-              // disable the input
-              if (input.files.length > 0)
-              {
-                  input.setAttribute("disabled", "true");
-                }
-                
-                sendMultipleFiles({
-                
-                    // list of files to upload
-                    files:input.files,
-                    
-                    // clear the container 
-                    onloadstart:function(){
-                        div.innerHTML = "Init upload ... ";
-                        sub.style.width = bar.style.width = "0px";
-                    },
-                    
-                    // do something during upload ...
-                    onprogress:function(rpe){
-                        div.innerHTML = [
-                            "Uploading: " + this.file.fileName,
-                            "Sent: " + size(rpe.loaded) + " of " + size(rpe.total),
-                            "Total Sent: " + size(this.sent + rpe.loaded) + " of " + size(this.total)
-                        ].join("<br />");
-                        sub.style.width = ((rpe.loaded * 200 / rpe.total) >> 0) + "px";
-                        bar.style.width = (((this.sent + rpe.loaded) * 200 / this.total) >> 0) + "px";
-                    },
-                    
-                    // fired when last file has been uploaded
-                    onload:function(rpe, xhr){
-                        div.innerHTML += ["",
-                            "Server Response: " + xhr.responseText
-                        ].join("<br />");
-                        sub.style.width = bar.style.width = "200px";
-                        // enable the input again
-                        input.removeAttribute("disabled");
-                        location.reload(true);
-                    },
-                    
-                    // if something is wrong ... (from native instance or because of size)
-                    onerror:function(){
-                        div.innerHTML = "The file " + this.file.fileName + " is too big [" + size(this.file.fileSize) + "]";
-                        
-                        // enable the input again
-                        input.removeAttribute("disabled");
-                    }
-                });
-            }, false);
-            
-            sub.parentNode.className = bar.parentNode.className = "progress";
-        };
+          // enable the input again
+          input.removeAttribute("disabled");
+      }
+  });
+}, false);
+    
+    sub.parentNode.className = bar.parentNode.className = "progress";
+};
 /** Basic upload manager for single or multiple files (Safari 4 Compatible)
  * @author  Andrea Giammarchi
  * @blog    WebReflection [webreflection.blogspot.com]
@@ -111,20 +119,20 @@ sendFile = (function(toString, maxSize){
                 };
             })(split[i]);
         upload.onload = function(rpe){
-            if(handler.onreadystatechange === false){
-                if(isFunction(handler.onload))
-                    handler.onload(rpe, xhr);
-            } else {
-                setTimeout(function(){
-                    if(xhr.readyState === 4){
-                        if(isFunction(handler.onload))
-                            handler.onload(rpe, xhr);
-                    } else
-                        setTimeout(arguments.callee, 15);
-                }, 15);
-            }
+          if(handler.onreadystatechange === false){
+              if(isFunction(handler.onload))
+                  handler.onload(rpe, xhr);
+          } else {
+              setTimeout(function(){
+                  if(xhr.readyState === 4){
+                      if(isFunction(handler.onload))
+                          handler.onload(rpe, xhr);
+                  } else
+                      setTimeout(arguments.callee, 15);
+              }, 15);
+          }
         };
-        handler.url = location.href + "/uploadfile"
+        handler.url = location.href + handler.handler_url; 
         xhr.open("post", handler.url, true);
         xhr.setRequestHeader("If-Modified-Since", "Mon, 26 Jul 1997 05:00:00 GMT");
         xhr.setRequestHeader("Cache-Control", "no-cache");
