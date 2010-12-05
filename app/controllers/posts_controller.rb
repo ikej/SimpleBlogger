@@ -1,5 +1,3 @@
-require 'digest'
-
 class PostsController < ApplicationController
   before_filter :is_admin_logged_in, :except=>[:show,:index,:format_code,:create_comment]
   include PostsHelper
@@ -134,13 +132,4 @@ class PostsController < ApplicationController
       format.js
     end
   end
-
-private
-  def is_admin_logged_in
-    users = {"ike"=>"77889"}
-    flash[:notice] =authenticate_or_request_with_http_digest do |username, password|
-      users[username]
-    end 
-  end
-
 end

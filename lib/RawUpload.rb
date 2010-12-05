@@ -53,7 +53,7 @@
         post.save!
         [200,{},["File [#{env['HTTP_X_FILE_NAME']}] Uploaded."]]
       rescue
-        [200,{},["Error [#{$!}] happened"]]
+        [200,{},["Error [#{$!.to_s}] happened"]]
       end
     end
 

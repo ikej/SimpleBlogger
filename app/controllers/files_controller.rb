@@ -1,4 +1,6 @@
 class FilesController < ApplicationController
+  before_filter :is_admin_logged_in
+  
   def delete_file
     begin
       @deleted_file = FileInfo.destroy(params[:file_id])
