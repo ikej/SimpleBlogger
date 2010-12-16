@@ -8,7 +8,7 @@ gem 'rails', '3.0.1'
 gem 'mysql2'
 
 
-#gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'coderay'
 

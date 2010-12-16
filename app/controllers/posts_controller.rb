@@ -113,7 +113,7 @@ class PostsController < ApplicationController
     new_comment.content = params[:comment][:content]
     post.comments ||= []
     post.comments << new_comment
-
+    
     if post.save
       flash[:notice] = 'Thanks for commenting.'
       @comment = new_comment
@@ -122,7 +122,10 @@ class PostsController < ApplicationController
       end
     else
       #show error
-      flash[:error] = 'Failed to add comment: ' << post.errors 
+      flash[:error] = 'Failed to add comment: ' + post.errors.inspect
+      respond_to do |format|
+        format.js
+      end
     end    
   end
 

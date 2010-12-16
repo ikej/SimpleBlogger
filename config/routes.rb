@@ -8,7 +8,7 @@ Ikeblog::Application.routes.draw do
   
   match 'upload/index' => 'upload#index' 
 
-  match 'tags/show_posts/:id(.:format)' => 'tags#show_posts', :as => :tagged_post
+  match 'tags/:keyword(.:format)' => 'tags#show_posts', :as => :tagged_post
 
   match 'posts/:id/create_comment' => 'posts#create_comment'
   

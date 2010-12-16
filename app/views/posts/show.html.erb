@@ -40,14 +40,15 @@ window.onload = function()
 <p>
 <b>Tags:</b>
 <% @post.tags.each do |tag| %>
-  <%=link_to tag.keyword, :controller =>'tags', :action => 'show_posts', :id => tag.id %>
+  <%=link_to tag.keyword, :controller =>'tags', :action => 'show_posts', :keyword => tag.keyword %>
 <%end%>
 </p>
 <%end%>
-
+<div id="attachments">
 <%if @post.file_infos.length>0 %>
 <%=render :partial=>'attachments', :locals => {:file_infos=>@post.file_infos, :may_delete=>false} %>
 <%end%>
+</div>
 
 
 <div id="comments">

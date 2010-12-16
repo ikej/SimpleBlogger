@@ -1,7 +1,12 @@
 
-page.insert_html :bottom, :comments,:partial=>'comment',:locals=>{:comment=>@comment}
-page[@comment].visual_effect :highlight
-page.replace_html :notice, flash[:notice]
-page[:new_comment].reset
-flash.discard
-
+if flash[:error]
+  page.replace_html :notice, flash[:error]
+  page[:new_comment].reset
+  flash.discard
+else
+  page.insert_html :bottom, :comments,:partial=>'comment',:locals=>{:comment=>@comment}
+  page[@comment].visual_effect :highlight
+  page.replace_html :notice, flash[:notice]
+  page[:new_comment].reset
+  flash.discard
+end

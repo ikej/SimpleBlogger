@@ -1,6 +1,6 @@
 <h2><%=@keyword %></h2>
 
-<%=link_to 'feed for this tag', '/tags/show_posts/'+@tag_id+'.atom'  %>
+<%=link_to 'feed for this tag', '/tags/'+@keyword+'.atom'  %>
 
 <%@posts.each do |p| %>
   <p> 

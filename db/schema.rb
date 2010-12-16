@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101209025141) do
+ActiveRecord::Schema.define(:version => 20101216025020) do
 
   create_table "comments", :force => true do |t|
     t.string   "name"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20101209025141) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["keyword"], :name => "index_tags_on_keyword"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

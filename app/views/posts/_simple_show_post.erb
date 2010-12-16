@@ -1,7 +1,9 @@
 <div>
 <h3><%=link_to post.title, post%></h3>
-<%=label 'created time','Posted about: '<< time_ago_in_words(post.created_at) %> ago<br/>  <%=link_to post.comments.length.to_s + ' comments', post_path(post.id)+"#comments"%>
-    <%=raw post.content %>
+<%=label 'created time','Posted about: '<< time_ago_in_words(post.created_at) %> ago<br/>
+<%=link_to post.comments.length.to_s + ' comments', post_path(post.id)+"#comments"%>
+<%=link_to post.file_infos.length.to_s + ' attachments', post_path(post.id)+"#attachments" %>
+  <%=raw post.content %>
     <hr/>
 </div>
  

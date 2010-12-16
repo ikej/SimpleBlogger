@@ -28,7 +28,7 @@
             <div>
               <b>Tags:</b> <br/>
               <% @all_tags.each do |tag| %>
-                <%=link_to tag.keyword + "(#{tag.post.length})", :controller =>'tags', :action => 'show_posts', :id => tag.id %>
+                <%=link_to tag.keyword + "(#{tag.post.length})", :controller =>'tags', :action => 'show_posts', :keyword => tag.keyword %>
               <%end%> 
             </div>
           <%end%>

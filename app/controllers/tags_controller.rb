@@ -1,8 +1,7 @@
 class TagsController < ApplicationController
    def show_posts
-    tag = Tag.find(params[:id])
+    tag = Tag.find_by_keyword(params[:keyword])
     @keyword = tag.keyword
-    @tag_id = tag.id.to_s
     @posts = tag.post.paginate :page=>params[:page],:per_page=>'10',:order => 'created_at DESC'  
     respond_to do |format|
       format.html
